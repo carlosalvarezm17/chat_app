@@ -102,7 +102,7 @@ class _AuthFormState extends State<AuthForm> {
                     child: Text(_isLogin ? 'Login' : 'Sign Up'),
                   ),
                   FlatButton(
-                    color: Theme.of(context).primaryColor,
+                    textColor: Theme.of(context).primaryColor,
                     onPressed: () {
                       setState(() {
                         _isLogin = !_isLogin;
