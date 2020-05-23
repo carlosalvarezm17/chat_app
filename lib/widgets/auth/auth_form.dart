@@ -1,6 +1,16 @@
 import 'package:flutter/material.dart';
 
 class AuthForm extends StatefulWidget {
+  final void Function(
+    String email,
+    String password,
+    String username,
+    bool isLogin,
+    BuildContext ctx,
+  ) submitFn;
+
+  AuthForm(this.submitFn);
+
   @override
   _AuthFormState createState() => _AuthFormState();
 }
@@ -18,6 +28,14 @@ class _AuthFormState extends State<AuthForm> {
 
     if (isValid) {
       _formKey.currentState.save();
+
+      widget.submitFn(
+        _userEmail.trim(),
+        _userPassword.trim(),
+        _userName.trim(),
+        _isLogin,
+        context,
+      );
     }
   }
 
@@ -50,20 +68,20 @@ class _AuthFormState extends State<AuthForm> {
                     },
                   ),
                   if (!_isLogin)
-                  TextFormField(
-                    key: ValueKey('user'),
-                    decoration: InputDecoration(labelText: 'Username'),
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Please enter a valid username.';
-                      }
+                    TextFormField(
+                      key: ValueKey('user'),
+                      decoration: InputDecoration(labelText: 'Username'),
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please enter a valid username.';
+                        }
 
-                      return null;
-                    },
-                    onSaved: (value) {
-                      _userName = value;
-                    },
-                  ),
+                        return null;
+                      },
+                      onSaved: (value) {
+                        _userName = value;
+                      },
+                    ),
                   TextFormField(
                     decoration: InputDecoration(labelText: 'Password'),
                     key: ValueKey('password'),
